@@ -16,7 +16,7 @@ postgresql:
     repository: bitnamilegacy/postgresql
 
 dags:
-    gitSync:
+  gitSync:
     enabled: true
 
     # git repo clone url
@@ -33,4 +33,4 @@ dags:
     # subpath within the repo where dags are located
     # should be "" if dags are at repo root
     subPath: "dags"
-    git-credentials
+    credentialsSecret: git-credentials
