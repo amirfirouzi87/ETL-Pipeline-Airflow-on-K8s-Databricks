@@ -12,7 +12,7 @@ with DAG(
     schedule="@weekly",
     start_date=datetime(2021, 3, 14),
     end_date=None,
-    catchup=True,
+    catchup=False,
 ) as dag:
 
     run_now = DatabricksRunNowOperator(
