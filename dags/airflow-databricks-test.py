@@ -19,7 +19,7 @@ with DAG(
         task_id='run_databricks_job',
         databricks_conn_id='databricks_default',
         job_id=817047180012395,  # Replace with your actual Databricks job ID
-        notebook_params={"p_data_sorce":u "Param-in-Airflow", "p_file_date": "{{ ds }}"}  # Example of passing parameters to the notebook
+        notebook_params={"p_data_source": "Param-in-Airflow", "p_file_date": "{{ ds }}"}  # Example of passing parameters to the notebook
     )
 
     transform = DatabricksRunNowOperator(
