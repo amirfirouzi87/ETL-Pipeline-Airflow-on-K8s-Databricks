@@ -34,3 +34,10 @@ dags:
     # should be "" if dags are at repo root
     subPath: "dags"
     credentialsSecret: git-credentials
+
+
+logs:
+  persistence:
+    enabled: true
+    existingClaim: airflow-logs-pvc
+
