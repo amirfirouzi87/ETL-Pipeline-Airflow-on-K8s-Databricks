@@ -1,5 +1,5 @@
 from airflow.sdk import DAG
-from api.yt_vids_data import get_playlist_id, get_video_metadata, extract_video_data, save_to_json
+from api.yt_vids_data import get_playlist_id, get_video_metadata, extract_video_data, save_to_json_upload_s3
 from datetime import timedelta
 
 default_args = {
@@ -18,5 +18,5 @@ with DAG(
     playlist_id = get_playlist_id()
     video_metadata = get_video_metadata(playlist_id)
     extracted_data = extract_video_data(video_metadata)
-    save_in_json = save_to_json(extracted_data)
+    save_in_json = save_to_json_upload_s3(extracted_data)
     playlist_id >> video_metadata >> extracted_data >> save_in_json

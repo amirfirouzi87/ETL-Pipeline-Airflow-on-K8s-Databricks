@@ -92,7 +92,7 @@ def extract_video_data(video_ids):
 
 
 @task
-def save_to_json(extracted_data):
+def save_to_json_upload_s3(extracted_data):
     file_path = f"/tmp/YT_data_{date.today()}.json"
 
     with open(file_path, 'w', encoding='utf-8') as json_outfile:
