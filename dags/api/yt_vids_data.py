@@ -5,7 +5,7 @@ from datetime import date
 from airflow.sdk import task, Variable
 
 
-CHANNEL_HANDLE = "TheDataGuyOfficial"
+CHANNEL_HANDLE = "helmijoujou9080"
 API_KEY = Variable.get("API_KEY")
 
 max_results = 50
