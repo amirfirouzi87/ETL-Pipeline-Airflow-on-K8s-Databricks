@@ -1,7 +1,7 @@
 import requests
 import json
 from datetime import date
-
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sdk import task, Variable
 
 
@@ -97,3 +97,11 @@ def save_to_json(extracted_data):
 
     with open(file_path, 'w', encoding='utf-8') as json_outfile:
         json.dump(extracted_data, json_outfile, ensure_ascii=False, indent=4)
+
+    s3 = S3Hook(aws_conn_id='s3_conn')
+    s3.load_file(
+        filename=file_path,
+        key=f"YT_data_{date.today()}.json",
+        bucket_name="youtubeetl852147",
+        replace=True
+    )
