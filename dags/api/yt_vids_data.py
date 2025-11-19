@@ -1,5 +1,6 @@
 import requests
 import json
+from datetime import date
 
 from airflow.sdk import task, Variable
 
