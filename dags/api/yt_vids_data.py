@@ -1,11 +1,11 @@
 import requests
 import os
 
-from airflow.sdk import task
+from airflow.sdk import task, Variable
 
 
 CHANNEL_HANDLE = "TheDataGuyOfficial"
-API_KEY = os.getenv("API_KEY")
+API_KEY = Variable.get("API_KEY")
 
 max_results = 50
 

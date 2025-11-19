@@ -1,5 +1,6 @@
 from airflow.sdk import DAG
 from api.yt_vids_data import get_playlist_id, get_video_metadata, extract_video_data, save_to_json
+from datetime import timedelta
 
 default_args = {
     'owner': 'airflow',
