@@ -1,5 +1,5 @@
 import requests
-import os
+import json
 
 from airflow.sdk import task, Variable
 
