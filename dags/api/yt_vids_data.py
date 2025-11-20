@@ -5,7 +5,7 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sdk import task, Variable
 
 
-CHANNEL_HANDLE = "irantalks"
+CHANNEL_HANDLE = "8shabtv"
 API_KEY = Variable.get("API_KEY")
 
 max_results = 50
