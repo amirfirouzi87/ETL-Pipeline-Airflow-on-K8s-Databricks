@@ -1,7 +1,7 @@
 from airflow.sdk import DAG
 from airflow.providers.databricks.operators.databricks import DatabricksRunNowOperator
 from api.yt_vids_data import get_playlist_id, get_video_metadata, extract_video_data, save_to_json_upload_s3
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 default_args = {
     'owner': 'airflow',
@@ -13,6 +13,8 @@ default_args = {
 with DAG(
     dag_id='get_youtube_videos_metadata_dag',
     default_args=default_args,
+    schedule='@hourly',
+    start_date=datetime(2025, 11, 20),
     catchup=False,
 ) as dag:
 
