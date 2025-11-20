@@ -1,11 +1,11 @@
 import requests
 import json
-from datetime import date
+from datetime import date, datetime
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sdk import task, Variable
 
 
-CHANNEL_HANDLE = "helmijoujou9080"
+CHANNEL_HANDLE = "CafeKhabarofficial"
 API_KEY = Variable.get("API_KEY")
 
 max_results = 50
@@ -93,7 +93,10 @@ def extract_video_data(video_ids):
 
 @task
 def save_to_json_upload_s3(extracted_data):
-    file_path = f"/tmp/YT_data_{date.today()}.json"
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    
+    file_path = f"/tmp/YT_data_{timestamp}.json"    
 
     with open(file_path, 'w', encoding='utf-8') as json_outfile:
         json.dump(extracted_data, json_outfile, ensure_ascii=False, indent=4)
