@@ -96,7 +96,8 @@ def save_to_json_upload_s3(extracted_data):
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     
-    file_path = f"/tmp/YT_data_{timestamp}.json"    
+    file_name = f"YT_data_{timestamp}.json"
+    file_path = f"/tmp/{file_name}"    
 
     with open(file_path, 'w', encoding='utf-8') as json_outfile:
         json.dump(extracted_data, json_outfile, ensure_ascii=False, indent=4)
@@ -104,7 +105,8 @@ def save_to_json_upload_s3(extracted_data):
     s3 = S3Hook(aws_conn_id='s3_conn')
     s3.load_file(
         filename=file_path,
-        key=f"YT_data_{timestamp}.json",
+        key=file_name,
         bucket_name="youtubeetl852147",
         replace=True
     )
+    return file_name

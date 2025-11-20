@@ -25,8 +25,9 @@ with DAG(
 
     run_databricks_job = DatabricksRunNowOperator(
         task_id='run_transformation_job',
-        databricks_conn_id='databricks_default',
-        job_id=253944526787423  # Replace with your actual Databricks job ID
+        databricks_conn_id='databricks_conn',
+        job_id=253944526787423,  # Replace with your actual Databricks job ID
+        notebook_params={"p_file_name": "{{ ti.xcom_pull(task_ids='save_to_json_upload_s3') }}"}
     )
 
     playlist_id >> video_metadata >> extracted_data >> save_in_json >> run_databricks_job
