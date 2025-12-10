@@ -11,9 +11,9 @@ kind load docker-image my-airflow-image:0.1
 
 kubectl create namespace airflow
 
-kubectl apply -f k8s/secrets/git-secrets.yaml
-kubectl apply -f k8s/volumes/airflow-logs-pv.yaml
-kubectl apply -f k8s/volumes/airflow-logs-pvc.yaml
+kubectl apply -f kubernetes/secrets/git-secrets.yaml
+kubectl apply -f kubernetes/volumes/airflow-logs-pv.yaml
+kubectl apply -f kubernetes/volumes/airflow-logs-pvc.yaml
 
 
 helm upgrade --install airflow apache-airflow/airflow \
