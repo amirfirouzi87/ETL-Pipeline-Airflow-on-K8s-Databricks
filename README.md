@@ -26,6 +26,7 @@ I separated the "manager" (Airflow) from the "worker" (Databricks) to make the s
 2.  **Save Data (AWS S3):** It saves the raw data as a JSON file in an S3 bucket.
 3.  **Load Data (Databricks - Bronze):** Spark reads the JSON file from S3 and adds it to a raw table.
 4.  **Clean Data (Databricks - Silver):** A Streaming job cleans the data, fixes the time format, and saves it to a final table.
+5.  **Scheduling:** As the DAG run every hour so that videos new metadata is added to the previous data and number of Views for example can be monitored.
 
 ---
 
@@ -39,6 +40,9 @@ The pipeline runs every hour (`@hourly`). Here is what the tasks do:
 * `save_to_json_upload_s3`: Saves the data to a local file and uploads it to S3 (`youtubeetl852147`).
 * `run_databricks_job`: Tells Databricks to start the Spark job and tells it which file to process (`p_file_name`).
 
+![alt text](image.png)
+Figure 1 : As said, Job ran every hour. Duration is a little long as everytime it needed to turn on the compute cluster of Databricks.
+
 ### 2. Loading Data: S3 to Delta (`1.Read_File_from_S3.ipynb`)
 * **Security:** I use Databricks Secrets (`awscredentials`) so I don't have to write passwords in the code.
 * **Raw Table:** It adds the data to the `yt_vids_data.raw` table.
@@ -48,6 +52,9 @@ The pipeline runs every hour (`@hourly`). Here is what the tasks do:
 * **Fixing Time:** YouTube uses a weird time format (like `PT15M33S`). I used Regex code to turn that into normal hours, minutes, and seconds (`HH:MM:SS`).
 * **Smart Streaming:** I use Spark Structured Streaming with `.trigger(availableNow=True)`.
     * *Why?* This processes all the new data at once and then turns off. It saves money because the cluster doesn't stay on all the time.
+
+![alt text](image-1.png)
+Figure 2 : Databricks Job is also ran every hour for loading and transforming data.
 
 ---
 
@@ -79,3 +86,10 @@ databricks secrets put --scope awscredentials --key awssecret
 
 ### 3. S3 Bucket Policy
 Ensure your S3 bucket (youtubeetl852147) allows access from the IAM user configured in Databricks.
+
+---
+## Result 
+As expected, metadata of videos are collected every hour and now changes in attributes such as No. of Likes, Counts and comments can be monitored and visualized
+
+![alt text](image-2.png)
+Figure 3 : metadata of a specific video.
