@@ -1,11 +1,3 @@
-After successfully deploying Apache Airflow on Kubernetes,here you can find the complete guideline(https://medium.com/@amirfiroozi87/deploying-apache-airflow-on-kubernetes-a-step-by-step-guide-c49339584518), I decided to create an ETL pipeline using that infrastructure.
-Here is what happens step-by-step :
-1. Metadata of video's of a Youtube channel is extracted and saved into a JSON file.
-2. The JSON file is uploaded to AWS S3.
-3. In Databricks, JSON file in AWS S3 is read and saved in delta format in a managed database.
-4. Loaded data is cleaned, transformed and written as stream.
-5. Apache Airflow is scheduled to be run hourly so that videos new metadata is added to the previous data and number of Views for example can be monitored. 
-
 # YouTube Analytics ETL: Airflow on Kubernetes & Databricks
 
 This is a complete project that grabs data from a YouTube channel, saves it to AWS S3, and then uses Databricks to clean and process it.
